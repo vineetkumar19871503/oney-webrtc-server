@@ -17,7 +17,7 @@ var httpsOptions = {
 let isLocal = process.env.PORT == null;
 var serverPort = (process.env.PORT  || 4443);
 var server = null;
-if (!isLocal) {
+if (isLocal) {
   server = require('https').createServer(httpsOptions, app);
 } else {
   server = require('http').createServer(app);
