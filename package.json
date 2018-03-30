@@ -7,6 +7,9 @@
   "engines": {
     "node": "v7.4.0"
   },
+  "engines": {
+    "node": "v8.4.0"
+  },
   "scripts": {
     "open": "heroku open",
     "logs": "heroku logs --tail",
