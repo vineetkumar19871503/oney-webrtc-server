@@ -7,7 +7,7 @@
 
 var socket = io();
 
-var configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
+var configuration = { "iceServers": [{ "url": "stun:stun.l.google.com:19302" }] };
 
 var peerConnections = {}; //map of {socketId: socket.io id, RTCPeerConnection}
 var remoteViewContainer = document.getElementById("remoteViewContainer");
@@ -16,13 +16,13 @@ let friends = null; //list of {socketId, name}
 let me = null; //{socketId, name}
 
 function join(roomId, name, callback) {
-  socket.emit('join', {roomId, name}, function(result){
+  socket.emit('join', { roomId, name }, function (result) {
     friends = result;
     console.log('Joins', friends);
     friends.forEach((friend) => {
       createPeerConnection(friend, true);
     });
-    if(callback != null) {
+    if (callback != null) {
       me = {
         socketId: socket.id,
         name: name
@@ -41,16 +41,16 @@ function createPeerConnection(friend, isOffer) {
   retVal.onicecandidate = function (event) {
     console.log('onicecandidate', event);
     if (event.candidate) {
-      socket.emit('exchange', {'to': socketId, 'candidate': event.candidate });
+      socket.emit('exchange', { 'to': socketId, 'candidate': event.candidate });
     }
   };
 
   function createOffer() {
-    retVal.createOffer(function(desc) {
+    retVal.createOffer(function (desc) {
       console.log('createOffer', desc);
       retVal.setLocalDescription(desc, function () {
         console.log('setLocalDescription', retVal.localDescription);
-        socket.emit('exchange', {'to': socketId, 'sdp': retVal.localDescription });
+        socket.emit('exchange', { 'to': socketId, 'sdp': retVal.localDescription });
       }, logError);
     }, logError);
   }
@@ -62,14 +62,14 @@ function createPeerConnection(friend, isOffer) {
     }
   }
 
-  retVal.oniceconnectionstatechange = function(event) {
+  retVal.oniceconnectionstatechange = function (event) {
     console.log('oniceconnectionstatechange', event);
     if (event.target.iceConnectionState === 'connected') {
       createDataChannel();
     }
   };
 
-  retVal.onsignalingstatechange = function(event) {
+  retVal.onsignalingstatechange = function (event) {
     console.log('onsignalingstatechange', event);
   };
 
@@ -80,14 +80,14 @@ function createPeerConnection(friend, isOffer) {
     //element.autoplay = 'autoplay';
     //element.src = URL.createObjectURL(event.stream);
     //remoteViewContainer.appendChild(element);
-    if(window.onFriendCallback != null) {
+    if (window.onFriendCallback != null) {
       window.onFriendCallback(socketId, event.stream);
     }
   };
 
   navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
     retVal.addStream(stream);
-  });
+  }, logError);
   // retVal.addStream(localStream);
 
   function createDataChannel() {
@@ -102,7 +102,7 @@ function createPeerConnection(friend, isOffer) {
 
     dataChannel.onmessage = function (event) {
       console.log("dataChannel.onmessage:", event.data);
-      if(window.onDataChannelMessage != null) {
+      if (window.onDataChannelMessage != null) {
         window.onDataChannelMessage(JSON.parse(event.data));
       }
     };
@@ -128,7 +128,7 @@ function exchange(data) {
     pc = peerConnections[fromId];
   } else {
     let friend = friends.filter((friend) => friend.socketId == fromId)[0];
-    if(friend == null) {
+    if (friend == null) {
       friend = {
         socketId: fromId,
         name: ""
@@ -141,13 +141,13 @@ function exchange(data) {
     console.log('exchange sdp', data);
     pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
       if (pc.remoteDescription.type == "offer")
-      pc.createAnswer(function(desc) {
-        console.log('createAnswer', desc);
-        pc.setLocalDescription(desc, function () {
-          console.log('setLocalDescription', pc.localDescription);
-          socket.emit('exchange', {'to': fromId, 'sdp': pc.localDescription });
+        pc.createAnswer(function (desc) {
+          console.log('createAnswer', desc);
+          pc.setLocalDescription(desc, function () {
+            console.log('setLocalDescription', pc.localDescription);
+            socket.emit('exchange', { 'to': fromId, 'sdp': pc.localDescription });
+          }, logError);
         }, logError);
-      }, logError);
     }, logError);
   } else {
     console.log('exchange candidate', data);
@@ -160,24 +160,24 @@ function leave(socketId) {
   var pc = peerConnections[socketId];
   pc.close();
   delete peerConnections[socketId];
-  if(window.onFriendLeft) {
+  if (window.onFriendLeft) {
     window.onFriendLeft(socketId);
   }
 }
 
-socket.on('exchange', function(data){
+socket.on('exchange', function (data) {
   exchange(data);
 });
 
-socket.on('leave', function(socketId){
+socket.on('leave', function (socketId) {
   leave(socketId);
 });
 
-socket.on('connect', function(data) {
+socket.on('connect', function (data) {
   console.log('connect');
 });
 
-socket.on("join", function(friend) {
+socket.on("join", function (friend) {
   //new friend:
   friends.push(friend);
   console.log("New friend joint conversation: ", friend);
