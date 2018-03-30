@@ -85,7 +85,10 @@ function createPeerConnection(friend, isOffer) {
     }
   };
 
-  retVal.addStream(localStream);
+  navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+    retVal.addStream(stream);
+  });
+  // retVal.addStream(localStream);
 
   function createDataChannel() {
     if (retVal.textDataChannel) {
