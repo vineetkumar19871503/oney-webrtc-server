@@ -189,6 +189,10 @@ socket.on("join", function (friend) {
   console.log("New friend joint conversation: ", friend);
 });
 
+socket.on("videocall", function (userdata) {
+  console.log(userdata);
+});
+
 function logError(error) {
   console.log("logError", error);
 }
