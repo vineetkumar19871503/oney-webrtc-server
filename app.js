@@ -113,7 +113,7 @@ io.on('connection', function (socket) {
     callback(socketIds.length);
   });
 
-  socket.on("videocall", function (userdata) {
-    console.log(userdata);
-  });
+  socket.on('call_request', function () {
+    
+  })
 });

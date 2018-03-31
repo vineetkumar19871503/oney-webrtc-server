@@ -35,7 +35,7 @@ function join(roomId, name, callback) {
 function makeCall(username) {
   console.log(socket);
   console.log(username);
-  socket.emit('videocall', { username });
+  socket.emit('video_call', { username });
 }
 
 function createPeerConnection(friend, isOffer) {
@@ -187,10 +187,6 @@ socket.on("join", function (friend) {
   //new friend:
   friends.push(friend);
   console.log("New friend joint conversation: ", friend);
-});
-
-socket.on("videocall", function (userdata) {
-  console.log(userdata);
 });
 
 function logError(error) {
