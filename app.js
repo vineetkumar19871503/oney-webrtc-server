@@ -15,7 +15,7 @@ var httpsOptions = {
   cert: fs.readFileSync('./fake-keys/certificate.pem')
 };
 let isLocal = process.env.PORT == null;
-var serverPort = (process.env.PORT  || 4443);
+var serverPort = (process.env.PORT || 4443);
 var server = null;
 if (isLocal) {
   server = require('https').createServer(httpsOptions, app);
@@ -27,12 +27,12 @@ var io = require('socket.io')(server);
 let socketIdToNames = {};
 //------------------------------------------------------------------------------
 //  Serving static files
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   console.log('get /');
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/draw', function(req, res){
+app.get('/draw', function (req, res) {
   console.log('get /');
   res.sendFile(__dirname + '/draw.html');
 });
@@ -41,7 +41,7 @@ app.use('/style', express.static(path.join(__dirname, 'style')));
 app.use('/script', express.static(path.join(__dirname, 'script')));
 app.use('/image', express.static(path.join(__dirname, 'image')));
 
-server.listen(serverPort, function(){
+server.listen(serverPort, function () {
   console.log('Rewebrtc-server is up and running at %s port', serverPort);
   if (isLocal) {
     open('http://localhost:' + serverPort)
@@ -63,9 +63,9 @@ function socketIdsInRoom(roomId) {
   }
 }
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
   console.log('Connection');
-  socket.on('disconnect', function(){
+  socket.on('disconnect', function () {
     console.log('Disconnect');
     delete socketIdToNames[socket.id];
     if (socket.room) {
@@ -78,7 +78,7 @@ io.on('connection', function(socket){
   /**
    * Callback: list of {socketId, name: name of user}
    */
-  socket.on('join', function(joinData, callback){ //Join room
+  socket.on('join', function (joinData, callback) { //Join room
     let roomId = joinData.roomId;
     let name = joinData.name;
     socket.join(roomId);
@@ -101,14 +101,14 @@ io.on('connection', function(socket){
     console.log('Join: ', joinData);
   });
 
-  socket.on('exchange', function(data){
+  socket.on('exchange', function (data) {
     console.log('exchange', data);
     data.from = socket.id;
     var to = io.sockets.connected[data.to];
     to.emit('exchange', data);
   });
 
-  socket.on("count", function(roomId, callback) {
+  socket.on("count", function (roomId, callback) {
     var socketIds = socketIdsInRoom(roomId);
     callback(socketIds.length);
   });
