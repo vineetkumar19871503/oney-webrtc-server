@@ -191,6 +191,7 @@ function logError(error) {
 //------------------------------------------------------------------------------
 // Services
 function countFriends(roomId, callback) {
+  console.log(roomId);
   socket.emit("count", roomId, (count) => {
     console.log("Count friends result: ", count);
     callback(count);
