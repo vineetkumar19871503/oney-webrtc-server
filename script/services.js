@@ -32,6 +32,12 @@ function join(roomId, name, callback) {
   });
 }
 
+function makeCall(username) {
+  console.log(socket);
+  console.log(username);
+  socket.emit('videocall', { username });
+}
+
 function createPeerConnection(friend, isOffer) {
   let socketId = friend.socketId;
   var retVal = new RTCPeerConnection(configuration);
@@ -183,9 +189,8 @@ socket.on("join", function (friend) {
   console.log("New friend joint conversation: ", friend);
 });
 
-socket.on("outgoing_videocall", function (info) {
-  console.log(info);
-  socket.emit('incoming_videocall', info);
+socket.on("videocall", function (userdata) {
+  console.log(userdata);
 });
 
 function logError(error) {
