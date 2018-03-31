@@ -16,7 +16,7 @@ let friends = null; //list of {socketId, name}
 let me = null; //{socketId, name}
 
 function join(roomId, name, callback) {
-  socket.emit('join', { roomId, name }, function (result) {
+  socket.emit('video_call', { roomId, name }, function (result) {
     friends = result;
     console.log('Joins', friends);
     friends.forEach((friend) => {

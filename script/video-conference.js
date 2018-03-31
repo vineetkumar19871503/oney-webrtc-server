@@ -77,7 +77,6 @@ function handleInputChatContentKeyPress(event) {
       name: me.name,
       content
     }
-    broadcastMessage(message);
     addMessage(message);
   }
   setTimeout(() => {
