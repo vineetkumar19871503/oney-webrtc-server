@@ -5,7 +5,7 @@
  * Feb 12, 2017
  */
 
-const VIDEO_CONFERENCE_ROOM = "twa-conference";
+const VIDEO_CONFERENCE_ROOM = "twa_conference";
 
 //Load selfView
 loadLocalStream(true); //muted
