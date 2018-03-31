@@ -193,7 +193,7 @@ function logError(error) {
 function countFriends(roomId, callback) {
   console.log(roomId);
   socket.emit("count", roomId, (count) => {
-    console.log("Count friends result: ", count);
+    console.log("Count friends (in room: " + roomId + " ) result: ", count);
     callback(count);
   });
 }
