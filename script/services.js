@@ -32,6 +32,12 @@ function join(roomId, name, callback) {
   });
 }
 
+function makeCall(username) {
+  socket.emit('call', { username }, function (result) {
+
+  })
+}
+
 function createPeerConnection(friend, isOffer) {
   let socketId = friend.socketId;
   var retVal = new RTCPeerConnection(configuration);
@@ -192,7 +198,7 @@ function logError(error) {
 // Services
 function countFriends(roomId, callback) {
   socket.emit("count", roomId, (count) => {
-    console.log("Count friends (in room: " + roomId + " ) result: ", count);  
+    console.log("Count friends (in room: " + roomId + " ) result: ", count);
     callback(count);
   });
 }

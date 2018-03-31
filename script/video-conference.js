@@ -32,6 +32,10 @@ let handleJoinConversationClick = () => {
   });
 }
 
+let callParticipant = () => {
+  makeCall('vink1987');
+}
+
 //Open peer connection successfully: show friend
 window.onFriendCallback = (socketId, stream) => {
   let friend = friends.filter(friend => friend.socketId == socketId)[0];
