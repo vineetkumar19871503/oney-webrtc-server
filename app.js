@@ -113,4 +113,7 @@ io.on('connection', function (socket) {
     callback(socketIds.length);
   });
 
+  socket.on('call_request', function () {
+    
+  })
 });
