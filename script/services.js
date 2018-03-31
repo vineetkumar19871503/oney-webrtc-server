@@ -33,6 +33,7 @@ function join(roomId, name, callback) {
 }
 
 function makeCall(username) {
+  console.log('calling ' + username);
   socket.emit('call', { username }, function (result) {
 
   })
