@@ -140,5 +140,10 @@ io.on('connection', function (socket) {
     const toSocketId = getSocketIdByUsername(data.username),
       to = io.sockets.connected[toSocketId];
     to.emit('video_call', { 'username': data.username });
-  })
+  });
+
+  socket.on('outgoing_call', function (data) {
+    const to = io.sockets.connected[data.to.socketid];
+    to.emit('incoming_call', data);
+  });
 });
