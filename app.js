@@ -71,15 +71,17 @@ function getSocketIdByUsername(u) {
     return;
   }
   var socketId = null;
+  var counter = 0;
   for (var sockId in socketIdToNames) {
     if (socketIdToNames.hasOwnProperty(sockId)) {
       const uName = socketIdToNames[sockId];
       if (uName == u) {
-        console.log('============\n\n\n\nmatched\n\n\n\n====================');
+        counter++;
         socketId = sockId;
       }
     }
   }
+  console.log('=======\n\n\n\n' + counter + '\n\n\n\n=============');
   return socketId;
 }
 
