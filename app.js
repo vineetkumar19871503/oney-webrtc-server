@@ -81,7 +81,7 @@ function getSocketIdByUsername(u) {
       }
     }
   }
-  console.log('=======\n\n\n\n' + counter + '\n\n\n\n=============');
+  // console.log('=======\n\n\n\n' + counter + '\n\n\n\n=============');
   return socketId;
 }
 
