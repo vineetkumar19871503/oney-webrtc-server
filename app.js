@@ -68,6 +68,21 @@ function getRoomConnections(roomId) {
   return socketIds;
 }
 
+function getSocketIdByUsername(u) {
+  if (!u) {
+    return;
+  }
+  var socketId = null;
+  for (var sockId in socketIdToNames) {
+    if (socketIdToNames.hasOwnProperty(sockId)) {
+      const uName = socketIdToNames[sockId];
+      if (uName == u) {
+        return sockId;
+      }
+    }
+  }
+}
+
 io.on('connection', function (socket) {
   console.log('Connection');
   socket.on('disconnect', function () {
@@ -120,8 +135,8 @@ io.on('connection', function (socket) {
 
   socket.on('video_call', function (data) {
     console.log('\n\n\n\n------------------------------');
-    
-    console.log(socketIdToNames);
+    console.log(getSocketIdByUsername(socketIdToNames));
+    console.log(getSocketIdByUsername(data.username));
     console.log('------------------------------\n\n\n\n');
   })
 });
