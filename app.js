@@ -28,12 +28,10 @@ let socketIdToNames = {};
 //------------------------------------------------------------------------------
 //  Serving static files
 app.get('/', function (req, res) {
-  console.log('get /');
   res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/draw', function (req, res) {
-  console.log('get /');
   res.sendFile(__dirname + '/draw.html');
 });
 
@@ -42,7 +40,7 @@ app.use('/script', express.static(path.join(__dirname, 'script')));
 app.use('/image', express.static(path.join(__dirname, 'image')));
 
 server.listen(serverPort, function () {
-  console.log('Rewebrtc-server is up and running at %s port', serverPort);
+  // console.log('Rewebrtc-server is up and running at %s port', serverPort);
   if (isLocal) {
     open('http://localhost:' + serverPort)
   }
@@ -72,13 +70,12 @@ function getSocketIdByUsername(u) {
   if (!u) {
     return;
   }
-  console.log(u);
   var socketId = null;
   for (var sockId in socketIdToNames) {
     if (socketIdToNames.hasOwnProperty(sockId)) {
       const uName = socketIdToNames[sockId];
-      socketId = sockId;
       if (uName == u) {
+        socketId = sockId;
         break;
       }
     }
@@ -145,7 +142,7 @@ io.on('connection', function (socket) {
   socket.on('outgoing_call', function (data) {
     const toSocketId = getSocketIdByUsername(data.to),
       to = io.sockets.connected[toSocketId];
-      console.log(toSocketId);
+    console.log(toSocketId);
     to.emit('incoming_call', data);
   });
 });
