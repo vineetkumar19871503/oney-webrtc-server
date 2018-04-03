@@ -142,7 +142,8 @@ io.on('connection', function (socket) {
   socket.on('outgoing_call', function (data) {
     const toSocketId = getSocketIdByUsername(data.to),
       to = io.sockets.connected[toSocketId];
-    console.log(toSocketId);
-    to.emit('incoming_call', data);
+    if (toSocketId) {
+      to.emit('incoming_call', data);
+    }
   });
 });
