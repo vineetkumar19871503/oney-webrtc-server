@@ -76,8 +76,9 @@ function getSocketIdByUsername(u) {
   for (var sockId in socketIdToNames) {
     if (socketIdToNames.hasOwnProperty(sockId)) {
       const uName = socketIdToNames[sockId];
+      socketId = sockId;
       if (uName == u) {
-        return sockId;
+        break;
       }
     }
   }
@@ -135,7 +136,7 @@ io.on('connection', function (socket) {
 
   socket.on('video_call', function (data) {
     console.log('\n\n\n\n------------------------------');
-    console.log(getSocketIdByUsername(socketIdToNames));
+    console.log(socketIdToNames);
     console.log(getSocketIdByUsername(data.username));
     console.log('------------------------------\n\n\n\n');
   })
