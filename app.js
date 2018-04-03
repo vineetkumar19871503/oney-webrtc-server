@@ -143,7 +143,8 @@ io.on('connection', function (socket) {
   });
 
   socket.on('outgoing_call', function (data) {
-    const to = io.sockets.connected[data.to.socketid];
+    const toSocketId = getSocketIdByUsername(data.to.username),
+      to = io.sockets.connected[toSocketId];
     to.emit('incoming_call', data);
   });
 });
