@@ -114,9 +114,6 @@ io.on('connection', function (socket) {
   });
 
   socket.on('video_call', function (data) {
-    var socketIds = socketIdsInRoom();
-    console.log('\n\n\n\n SOCKET IDS:');
-    console.log(data);
-    console.log('\n\n\n\n');
+    console.log(socket);
   })
 });
