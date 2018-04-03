@@ -114,9 +114,9 @@ io.on('connection', function (socket) {
   });
 
   socket.on('video_call', function (data) {
-    var socketIds = socketIdsInRoom("twa_conference");
+    var socketIds = socketIdsInRoom();
     console.log('\n\n\n\n SOCKET IDS:');
-    console.log(socketIds);
+    console.log(io.sockets.connected);
     console.log('\n\n\n\n');
   })
 });
