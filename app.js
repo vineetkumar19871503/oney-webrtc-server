@@ -70,6 +70,7 @@ function getSocketIdByUsername(u) {
   if (!u) {
     return;
   }
+  
   var socketId = null;
   var counter = 0;
   for (var sockId in socketIdToNames) {
