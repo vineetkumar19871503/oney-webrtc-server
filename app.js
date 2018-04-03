@@ -70,7 +70,7 @@ function getSocketIdByUsername(u) {
   if (!u) {
     return;
   }
-  
+
   var socketId = null;
   var counter = 0;
   for (var sockId in socketIdToNames) {
@@ -145,9 +145,16 @@ io.on('connection', function (socket) {
   socket.on('outgoing_call', function (data) {
     const toSocketId = getSocketIdByUsername(data.to),
       to = io.sockets.connected[toSocketId];
-
     if (toSocketId) {
       to.emit('incoming_call', data);
+    }
+  });
+
+  socket.on('drop_call', function (data) {
+    const toSocketId = getSocketIdByUsername(data.callee),
+      to = io.sockets.connected[toSocketId];
+    if (toSocketId) {
+      to.emit('drop_call');
     }
   });
 });
