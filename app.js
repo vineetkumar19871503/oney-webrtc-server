@@ -120,6 +120,7 @@ io.on('connection', function (socket) {
 
   socket.on('video_call', function (data) {
     console.log('\n\n\n\n------------------------------');
+    
     console.log(socketIdToNames);
     console.log('------------------------------\n\n\n\n');
   })
