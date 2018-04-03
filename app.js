@@ -72,6 +72,7 @@ function getSocketIdByUsername(u) {
   if (!u) {
     return;
   }
+  console.log(u);
   var socketId = null;
   for (var sockId in socketIdToNames) {
     if (socketIdToNames.hasOwnProperty(sockId)) {

@@ -33,7 +33,7 @@ let handleJoinConversationClick = () => {
 }
 
 let callParticipant = () => {
-  makeCall('vink1987');
+  makeCall('abc');
 }
 
 //Open peer connection successfully: show friend
