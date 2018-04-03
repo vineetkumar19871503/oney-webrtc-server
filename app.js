@@ -75,8 +75,8 @@ function getSocketIdByUsername(u) {
     if (socketIdToNames.hasOwnProperty(sockId)) {
       const uName = socketIdToNames[sockId];
       if (uName == u) {
+        console.log('============\n\n\n\nmatched\n\n\n\n====================');
         socketId = sockId;
-        break;
       }
     }
   }
@@ -142,7 +142,7 @@ io.on('connection', function (socket) {
   socket.on('outgoing_call', function (data) {
     const toSocketId = getSocketIdByUsername(data.to),
       to = io.sockets.connected[toSocketId];
-      
+
     if (toSocketId) {
       to.emit('incoming_call', data);
     }
