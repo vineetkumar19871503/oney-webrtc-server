@@ -119,6 +119,6 @@ io.on('connection', function (socket) {
   });
 
   socket.on('video_call', function (data) {
-    console.log(getRoomConnections());
+    console.log(getRoomConnections('twa_conference'));
   })
 });
