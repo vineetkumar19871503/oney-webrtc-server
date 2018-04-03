@@ -137,9 +137,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('video_call', function (data) {
-    console.log('\n\n\n\n------------------------------');
-    console.log(socketIdToNames);
-    console.log(getSocketIdByUsername(data.username));
-    console.log('------------------------------\n\n\n\n');
+    const callTo = getSocketIdByUsername(data.username);
+    callTo.emit('video_call', { 'username': data.username });
   })
 });
