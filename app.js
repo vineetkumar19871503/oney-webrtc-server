@@ -83,6 +83,7 @@ function getSocketIdByUsername(u) {
       }
     }
   }
+  return socketId;
 }
 
 io.on('connection', function (socket) {
