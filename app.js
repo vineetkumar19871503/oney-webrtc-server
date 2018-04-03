@@ -79,7 +79,6 @@ io.on('connection', function (socket) {
    * Callback: list of {socketId, name: name of user}
    */
   socket.on('join', function (joinData, callback) { //Join room
-    console.log('\n\n\n\n=============join event called=============\n\n\n\n');
     let roomId = joinData.roomId;
     let name = joinData.name;
     socket.join(roomId);
@@ -114,7 +113,10 @@ io.on('connection', function (socket) {
     callback(socketIds.length);
   });
 
-  socket.on('call_request', function () {
-    
+  socket.on('video_call', function (data) {
+    var socketIds = socketIdsInRoom(roomId);
+    console.log('\n\n\n\n SOCKET IDS:');
+    console.log(socketIds);
+    console.log('\n\n\n\n');
   })
 });
