@@ -128,6 +128,8 @@ io.on('connection', function (socket) {
     console.log('exchange', data);
     data.from = socket.id;
     var to = io.sockets.connected[data.to];
+    console.log('\n\n\n\n\n==============');
+    console.log(to);
     to.emit('exchange', data);
   });
 
