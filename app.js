@@ -129,6 +129,10 @@ io.on('connection', function (socket) {
     data.from = socket.id;
     var to = io.sockets.connected[data.to];
     console.log("\n\n\n\n\n==============");
+    console.log(data);
+    console.log("\n\n\n\n\n==============");
+    console.log(data.to);
+    console.log("\n\n\n\n\n==============");
     console.log(to);
     console.log("==============\n\n\n\n\n");
     to.emit('exchange', data);
