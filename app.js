@@ -79,7 +79,7 @@ io.on('connection', function (socket) {
    * Callback: list of {socketId, name: name of user}
    */
   socket.on('join', function (joinData, callback) { //Join room
-    alert('join event called');
+    console.log('join event called');
     let roomId = joinData.roomId;
     let name = joinData.name;
     socket.join(roomId);
