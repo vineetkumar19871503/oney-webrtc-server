@@ -128,9 +128,6 @@ io.on('connection', function (socket) {
     console.log('exchange', data);
     data.from = socket.id;
     var to = io.sockets.connected[data.to];
-    console.log("\n\n\n\n\n==============");
-    console.log(data.to);
-    console.log("==============\n\n\n\n\n");
     to.emit('exchange', data);
   });
 
@@ -140,8 +137,8 @@ io.on('connection', function (socket) {
   });
 
   socket.on('video_call', function (data) {
-    const callTo = getSocketIdByUsername(data.username);
-
-    // callTo.emit('video_call', { 'username': data.username });
+    const toSocketId = getSocketIdByUsername(data.username),
+      to = io.sockets.connected[toSocketId];
+    to.emit('video_call', { 'username': data.username });
   })
 });
