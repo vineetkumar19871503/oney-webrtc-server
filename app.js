@@ -63,6 +63,11 @@ function socketIdsInRoom(roomId) {
   }
 }
 
+function getRoomConnections(roomId) {
+  var socketIds = io.nsps['/'].adapter.rooms[roomId];
+  return socketIds;
+}
+
 io.on('connection', function (socket) {
   console.log('Connection');
   socket.on('disconnect', function () {
@@ -114,6 +119,6 @@ io.on('connection', function (socket) {
   });
 
   socket.on('video_call', function (data) {
-    console.log(socket);
+    console.log(getRoomConnections());
   })
 });
