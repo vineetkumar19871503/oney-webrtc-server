@@ -154,7 +154,7 @@ io.on('connection', function (socket) {
     const toSocketId = getSocketIdByUsername(data.callee),
       to = io.sockets.connected[toSocketId];
     if (toSocketId) {
-      to.emit('drop_call');
+      to.emit('participant_dropped_call');
     }
   });
 });
